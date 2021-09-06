@@ -1,0 +1,47 @@
+﻿@page
+@model IndexModel
+@using System.IO;
+@using Hummm.Pages;
+@{
+    ViewData["Title"] = "検索";
+}
+
+<div>
+    <form method="get" asp-controller="/" asp-action="Index">
+            <input name="searchString" />
+            <input type="submit" value="検索" class="btn btn-primary"/>
+    </form>
+</div>
+
+<table class="table">
+    <tbody>
+        @foreach(var post in @Model.Posts){
+            string mp3Path = post.PostID + post.Title + post.PostDate.ToString("yyyy-dd-M--HH-mm-ss") + ".mp3";
+            string jpegPath = post.PostID + post.Title + post.PostDate.ToString("yyyy-dd-M--HH-mm-ss") + ".jpeg";
+            foreach(var filename in @Model.JpegFilenameList)
+            {
+                if(filename.Contains(jpegPath))
+                {
+                    jpegPath = filename;
+                    break;
+                }
+            }
+            foreach(var filename in @Model.Mp3FilenameList)
+            {
+                if(filename.Contains(mp3Path))
+                {
+                    mp3Path = filename;
+                    break;
+                }
+            }
+            <tr>
+                <td>@Html.DisplayFor(model => post.Title)</td>
+                <td>@Html.DisplayFor(model => post.Description)</td>
+                <td><img src="@jpegPath" asp-append-version="true" width="100" height="100"/></td>
+            </tr>
+            <tr>
+                <td><audio controls src="@mp3Path" width="1000"></audio></td>
+            </tr>
+        }
+    </tbody>
+</table>

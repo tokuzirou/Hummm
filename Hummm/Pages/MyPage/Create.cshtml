@@ -1,0 +1,49 @@
+﻿@page
+@model Hummm.Pages.MyPage.CreateModel
+
+@{
+    ViewData["Title"] = "投稿";
+}
+
+<h1>Create</h1>
+
+<h4>Post</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PostVM.Title" class="control-label"></label>
+                <input asp-for="PostVM.Title" class="form-control" />
+                <span asp-validation-for="PostVM.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostVM.Description" class="control-label"></label>
+                <input asp-for="PostVM.Description" class="form-control" />
+                <span asp-validation-for="PostVM.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostVM.Image" class="control-label"></label>
+                <input asp-for="PostVM.Image" class="" type="file"/>
+                <span asp-validation-for="PostVM.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostVM.MP3" class="control-label"></label>
+                <input asp-for="PostVM.MP3" class="" type="file"/>
+                <span asp-validation-for="PostVM.MP3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="投稿" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
